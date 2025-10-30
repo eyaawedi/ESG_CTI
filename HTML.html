@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contextual Isolation in ESG Reporting</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f7f9;
+        }
+        .slide {
+            height: 100vh;
+            width: 100vw;
+            display: none;
+            padding: 4rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            transition: opacity 0.5s ease-in-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        .slide.active {
+            display: flex;
+        }
+        .nav-button {
+            transition: all 0.2s ease;
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+        }
+        .score-card {
+            min-width: 300px;
+            max-width: 500px;
+            margin: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .score-card:hover {
+            transform: scale(1.03);
+        }
+        /* Hide scrollbar */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        html {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="overflow-hidden">
+
+    <!-- Navigation Controls -->
+    <div class="fixed bottom-6 right-6 flex space-x-4 z-50">
+        <button id="prevBtn" class="nav-button bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-full opacity-50 cursor-not-allowed shadow-lg">
+            &larr; Previous
+        </button>
+        <button id="nextBtn" class="nav-button bg-blue-600 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-blue-700">
+            Next &rarr;
+        </button>
+    </div>
+
+    <!-- Slides Container -->
+    <div id="slides-container">
+
+        <!-- Slide 1 (Index 0): Title -->
+        <div class="slide active" id="slide-0">
+            <h1 class="text-6xl font-extrabold text-gray-900 mb-6 text-center">
+                Contextual Isolation in ESG Reporting
+            </h1>
+            <p class="text-2xl text-blue-600 font-light text-center">
+                An Experiment on Perception and LLM Rating Bias
+            </p>
+            <p class="text-lg text-gray-500 mt-12">
+                Eya & Akrem
+            </p>
+        </div>
+
+        <!-- Slide 2 (Index 1): What is Contextual Isolation? -->
+        <div class="slide" id="slide-1">
+            <h2 class="text-5xl font-bold text-gray-800 mb-12 border-b-4 border-blue-400 pb-2">
+                1. What is Contextual Isolation?
+            </h2>
+            <div class="max-w-4xl text-left">
+                <p class="text-3xl text-gray-600 leading-snug mb-6">
+                    <span class="font-semibold text-blue-600">Definition:</span> Intentionally separating data from its original context, then re-presenting or reformatting it to subtly change its meaning or interpretation.
+                </p>
+                <div class="bg-gray-100 p-6 rounded-xl shadow-inner mt-8">
+                    <p class="text-2xl text-gray-700">
+                        <span class="font-bold text-red-500">The Goal:</span> To test whether format and framing alter reader perception (or model interpretation) even though the underlying numerical data remains technically the same.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3 (Index 2): The Source & Justification -->
+        <div class="slide" id="slide-2">
+            <h2 class="text-5xl font-bold text-gray-800 mb-12 border-b-4 border-blue-400 pb-2">
+                2. The Snippet: Choice & Justification
+            </h2>
+            <div class="max-w-4xl text-left grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-3xl font-semibold text-blue-600 mb-3">Original Document</h3>
+                    <p class="text-xl text-gray-700">
+                        We used a section of the <span class="font-bold">Microsoft 2025 Environmental Data Fact Sheet</span> (Pages 22-24), focusing on:
+                        <ul class="list-disc list-inside text-lg mt-2 space-y-1 ml-4">
+                            <li>Water Withdrawal, Consumption, and Discharge (Table 17)</li>
+                            <li>Operational Waste Prevention (Table 18)</li>
+                            <li>Verification/Assurance details (Table 19)</li>
+                        </ul>
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-3xl font-semibold text-red-500 mb-3">Justification for Choice</h3>
+                    <p class="text-xl text-gray-700">
+                        The snippet contained **precise, technical metrics** (like ML, mt, specific fiscal years, and explicit auditor names) that are highly effective for contextual manipulation.
+                    </p>
+                    <p class="text-xl text-gray-700 mt-4">
+                        By removing these specific cues, we could transform a dense, incomplete *data sheet* into a seemingly comprehensive *summary report*, creating maximum scoring disparity.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4 (Index 3): Manipulation Overview (New) -->
+        <div class="slide" id="slide-3">
+            <h2 class="text-5xl font-bold text-gray-800 mb-8 border-b-4 border-blue-400 pb-2">
+                3. The Manipulation: Overview
+            </h2>
+            <div class="max-w-5xl w-full text-left rounded-xl overflow-hidden shadow-2xl">
+                <!-- Header Row -->
+                <div class="grid grid-cols-3 text-white font-extrabold text-xl md:text-2xl text-center">
+                    <div class="p-4 bg-blue-600 rounded-tl-xl">Manipulation Focus</div>
+                    <div class="p-4 bg-red-600">Original Snippet (Precise Context)</div>
+                    <div class="p-4 bg-green-600 rounded-tr-xl">Isolated Snippet (Vague Framing)</div>
+                </div>
+
+                <!-- Row 1: Document Context & Branding -->
+                <div class="grid grid-cols-3 text-lg border-b border-gray-200">
+                    <div class="p-4 bg-gray-100 font-semibold flex items-center">Context & Branding</div>
+                    <div class="p-4 bg-red-50 text-red-800">
+                        <span class="font-bold">Microsoft 2025 Environmental Data Fact Sheet</span> (Pages 22-24, tables 17-19).
+                    </div>
+                    <div class="p-4 bg-green-50 text-green-800">
+                        <span class="font-bold">The organization's report summary.</span> All branding deleted.
+                    </div>
+                </div>
+
+                <!-- Row 2: Precision/Units -->
+                <div class="grid grid-cols-3 text-lg border-b border-gray-200">
+                    <div class="p-4 bg-gray-100 font-semibold flex items-center">Metric Precision & Units</div>
+                    <div class="p-4 bg-red-50 text-red-800">
+                        Explicit units: <span class="font-bold">ML</span>, <span class="font-bold">mt</span>. Fiscal Years: <span class="font-bold">FY20-FY24</span>.
+                    </div>
+                    <div class="p-4 bg-green-50 text-green-800">
+                        Units and time references removed. Titles generalized (e.g., <span class="font-bold">"Program Results"</span>).
+                    </div>
+                </div>
+
+                <!-- Row 3: Assurance -->
+                <div class="grid grid-cols-3 text-lg">
+                    <div class="p-4 bg-gray-100 font-semibold flex items-center">Third-Party Assurance</div>
+                    <div class="p-4 bg-red-50 text-red-800">
+                        Specific auditor: **Deloitte**. Scope: **limited** assurance.
+                    </div>
+                    <div class="p-4 bg-green-50 text-green-800">
+                        Vague: <span class="font-bold">"Data reviewed by independent experts."</span> No scope limitations.
+                    </div>
+                </div>
+            </div>
+            <p class="mt-8 text-xl text-gray-600 font-medium max-w-4xl text-center">
+                The next slides break down these manipulation steps in detail.
+            </p>
+        </div>
+
+        <!-- Slide 5 (Index 4): Detail 1 - Data Precision & Units (New) -->
+        <div class="slide" id="slide-4">
+            <h2 class="text-5xl font-bold text-gray-800 mb-8 border-b-4 border-blue-400 pb-2">
+                3.1. Manipulation Detail: Data Precision
+            </h2>
+            <div class="max-w-6xl w-full text-left rounded-xl overflow-hidden shadow-2xl">
+                <!-- Header Row -->
+                <div class="grid grid-cols-2 text-white font-extrabold text-xl md:text-2xl text-center">
+                    <div class="p-4 bg-red-700">Original Snippet (Precise Context)</div>
+                    <div class="p-4 bg-green-700">Isolated Snippet (Vague Framing)</div>
+                </div>
+
+                <!-- Row 1: Units -->
+                <div class="grid grid-cols-2 text-lg border-b border-gray-200">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        Metrics were defined by clear units, e.g., **ML** (Megaliters), **mt** (Metric Tons), **MWh**.
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        All units were removed. Raw numbers force the reader/LLM to <span class="font-bold">assume scale</span> and completeness.
+                    </div>
+                </div>
+
+                <!-- Row 2: Table Titles -->
+                <div class="grid grid-cols-2 text-lg border-b border-gray-200">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        Titles were specific fact-sheet items: **"Table 17 - Water withdrawal..."** or **"Table 18 - Operational Waste Prevention."**
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        Titles were generalized to **"Water Resources — Summary Metrics"** and **"Waste-Prevention Program Results."**
+                    </div>
+                </div>
+
+                <!-- Row 3: Temporal Data -->
+                <div class="grid grid-cols-2 text-lg">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        Data presented in columns by fiscal year: **FY20**, **FY21**, **FY22**, **FY23**, **FY24**.
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        All fiscal year headers were deleted, making the data appear as a single, timeless snapshot of <span class="font-bold">current results</span>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6 (Index 5): Detail 2 - Assurance & Verification (New) -->
+        <div class="slide" id="slide-5">
+            <h2 class="text-5xl font-bold text-gray-800 mb-8 border-b-4 border-blue-400 pb-2">
+                3.2. Manipulation Detail: Assurance & Verification
+            </h2>
+            <div class="max-w-6xl w-full text-left rounded-xl overflow-hidden shadow-2xl">
+                <!-- Header Row -->
+                <div class="grid grid-cols-2 text-white font-extrabold text-xl md:text-2xl text-center">
+                    <div class="p-4 bg-red-700">Original Snippet (Precise Context)</div>
+                    <div class="p-4 bg-green-700">Isolated Snippet (Vague Framing)</div>
+                </div>
+
+                <!-- Row 1: Auditor Name -->
+                <div class="grid grid-cols-2 text-lg border-b border-gray-200">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        The document named specific external auditors: **Deloitte & Touche LLP** and **APEX** (for older data).
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        Auditor names were deleted. Replaced with the generic and positive phrase: **"independent experts."**
+                    </div>
+                </div>
+
+                <!-- Row 2: Assurance Scope -->
+                <div class="grid grid-cols-2 text-lg border-b border-gray-200">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        The scope was precisely defined as **"limited third-party assurance."** (A key limitation).
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        Replaced with **"External Review Overview"** and **"Data reviewed by independent experts before publication,"** implying full, comprehensive assurance.
+                    </div>
+                </div>
+
+                <!-- Row 3: Policy References -->
+                <div class="grid grid-cols-2 text-lg">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        Contained complex text about audit scope limitations and specific policy section numbers.
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        Compressed into a clean, simple, and uncheckable sentence: **"Note: Covers key environmental metrics."**
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7 (Index 6): Detail 3 - Branding & Metadata (New) -->
+        <div class="slide" id="slide-6">
+            <h2 class="text-5xl font-bold text-gray-800 mb-8 border-b-4 border-blue-400 pb-2">
+                3.3. Manipulation Detail: Branding & Metadata
+            </h2>
+            <div class="max-w-6xl w-full text-left rounded-xl overflow-hidden shadow-2xl">
+                <!-- Header Row -->
+                <div class="grid grid-cols-2 text-white font-extrabold text-xl md:text-2xl text-center">
+                    <div class="p-4 bg-red-700">Original Snippet (Precise Context)</div>
+                    <div class="p-4 bg-green-700">Isolated Snippet (Vague Framing)</div>
+                </div>
+
+                <!-- Row 1: Company Identity -->
+                <div class="grid grid-cols-2 text-lg border-b border-gray-200">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        Frequent use of company name and identifiers: **"Microsoft," "MSFT," "datacenter."**
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        All specific company identifiers deleted. Replaced with the generic phrase: **"The organization."**
+                    </div>
+                </div>
+
+                <!-- Row 2: Program Scope -->
+                <div class="grid grid-cols-2 text-lg border-b border-gray-200">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        Used technical program references like **"Scope 1/2/3"** and **"CSR"** which denote limited focus.
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        All technical terms removed, making the report feel like a <span class="font-bold">broad, holistic summary</span> of company operations.
+                    </div>
+                </div>
+
+                <!-- Row 3: Document Footers -->
+                <div class="grid grid-cols-2 text-lg">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        Contained legal disclaimers about **"forward-looking statements"** and other liabilities.
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        All legal and disclaimer text was deleted for a clean, authoritative appearance.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8 (Index 7): Detail 4 - Cohesion & Footnotes (New) -->
+        <div class="slide" id="slide-7">
+            <h2 class="text-5xl font-bold text-gray-800 mb-8 border-b-4 border-blue-400 pb-2">
+                3.4. Manipulation Detail: Cohesion & Footnotes
+            </h2>
+            <div class="max-w-6xl w-full text-left rounded-xl overflow-hidden shadow-2xl">
+                <!-- Header Row -->
+                <div class="grid grid-cols-2 text-white font-extrabold text-xl md:text-2xl text-center">
+                    <div class="p-4 bg-red-700">Original Snippet (Precise Context)</div>
+                    <div class="p-4 bg-green-700">Isolated Snippet (Vague Framing)</div>
+                </div>
+
+                <!-- Row 1: Connective Text -->
+                <div class="grid grid-cols-2 text-lg border-b border-gray-200">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        The content was primarily tables, with little narrative text linking the sections.
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        Added phrases like <span class="font-bold">"The following summary outlines..."</span> to give the data an implied internal coherence and narrative flow.
+                    </div>
+                </div>
+
+                <!-- Row 2: Vague Footnotes -->
+                <div class="grid grid-cols-2 text-lg">
+                    <div class="p-4 bg-red-100 text-red-900">
+                        Footnotes often pointed to specific external documents (e.g., CDP response).
+                    </div>
+                    <div class="p-4 bg-green-100 text-green-900">
+                        Added a simple, check-resistant footnote: **"Note: Data shown are summary environmental metrics derived from internal tracking systems; units and time frames as reported."**
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9 (Index 8): Results - Original Snippet -->
+        <div class="slide" id="slide-8">
+            <h2 class="text-5xl font-bold text-gray-800 mb-12 border-b-4 border-blue-400 pb-2">
+                4. Results: The Original Snippet (Baseline)
+            </h2>
+            <div class="flex flex-col md:flex-row items-center justify-center">
+                <div class="score-card bg-red-100 p-8 rounded-xl shadow-xl border-t-4 border-red-500">
+                    <h3 class="text-4xl font-extrabold text-red-700 mb-4">Final ESG Score: <span class="text-6xl">36.25 / 100</span></h3>
+                    <p class="text-2xl font-semibold text-red-600 mb-6">Overall Rating: <span class="font-extrabold">Poor / Weak</span></p>
+                    <p class="text-lg text-gray-700">
+                        The initial score was low primarily because the excerpt was heavily focused on the <span class="font-bold">Environmental (E)</span> pillar, resulting in missing or insufficient data for Social (S) and Governance (G).
+                    </p>
+                </div>
+                <div class="mt-6 md:mt-0 md:ml-8">
+                    <table class="min-w-full text-left bg-white rounded-lg shadow-lg">
+                        <thead>
+                            <tr class="bg-red-500 text-white">
+                                <th class="p-3 text-lg font-bold rounded-tl-lg">Category</th>
+                                <th class="p-3 text-lg font-bold">Sub-score (0-100)</th>
+                                <th class="p-3 text-lg font-bold rounded-tr-lg">Weighted Contribution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50 border-b">
+                                <td class="p-3 font-medium">Environmental (40%)</td>
+                                <td class="p-3 text-green-600 font-bold">80</td>
+                                <td class="p-3">32.00</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 border-b">
+                                <td class="p-3 font-medium">Social (35%)</td>
+                                <td class="p-3 text-red-600 font-bold">5</td>
+                                <td class="p-3">1.75</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-medium">Governance (25%)</td>
+                                <td class="p-3 text-red-600 font-bold">10</td>
+                                <td class="p-3">2.50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10 (Index 9): Results - Manipulated Snippet -->
+        <div class="slide" id="slide-9">
+            <h2 class="text-5xl font-bold text-gray-800 mb-12 border-b-4 border-blue-400 pb-2">
+                5. Results: The Contextually Isolated Snippet
+            </h2>
+            <div class="flex flex-col md:flex-row items-center justify-center">
+                <div class="score-card bg-green-100 p-8 rounded-xl shadow-xl border-t-4 border-green-600">
+                    <h3 class="text-4xl font-extrabold text-green-800 mb-4">Final ESG Score: <span class="text-6xl">90.30 / 100</span></h3>
+                    <p class="text-2xl font-semibold text-green-700 mb-6">Overall Rating: <span class="font-extrabold">Excellent / Leader</span></p>
+                    <p class="text-lg text-gray-700">
+                        The removal of specific context forced the LLM to <span class="font-bold italic">infer</span> competence and completeness, dramatically inflating the Social and Governance scores.
+                    </p>
+                </div>
+                <div class="mt-6 md:mt-0 md:ml-8">
+                    <table class="min-w-full text-left bg-white rounded-lg shadow-lg">
+                        <thead>
+                            <tr class="bg-green-600 text-white">
+                                <th class="p-3 text-lg font-bold rounded-tl-lg">Category</th>
+                                <th class="p-3 text-lg font-bold">Sub-score (0-100)</th>
+                                <th class="p-3 text-lg font-bold rounded-tr-lg">Weighted Contribution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50 border-b">
+                                <td class="p-3 font-medium">Environmental (40%)</td>
+                                <td class="p-3 text-green-600 font-bold">93.25</td>
+                                <td class="p-3">37.30</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 border-b">
+                                <td class="p-3 font-medium">Social (35%)</td>
+                                <td class="p-3 text-green-600 font-bold">90</td>
+                                <td class="p-3">31.50</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-medium">Governance (25%)</td>
+                                <td class="p-3 text-green-600 font-bold">86</td>
+                                <td class="p-3">21.50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11 (Index 10): Conclusion -->
+        <div class="slide" id="slide-10">
+            <h2 class="text-5xl font-bold text-gray-800 mb-12 border-b-4 border-blue-400 pb-2">
+                6. Conclusion & Key Takeaways
+            </h2>
+            <div class="max-w-4xl text-left space-y-6 text-xl">
+                <div class="flex items-start">
+                    <span class="text-3xl font-extrabold text-blue-600 mr-4">1.</span>
+                    <p class="text-gray-700">
+                        <span class="font-bold">Framing is Everything:</span> The presentation and structural elements of an ESG report—not just the raw numbers—can shift a rating from 'Weak' to 'Leader' when context is removed.
+                    </p>
+                </div>
+                <div class="flex items-start">
+                    <span class="text-3xl font-extrabold text-blue-600 mr-4">2.</span>
+                    <p class="text-gray-700">
+                        <span class="font-bold">LLM Vulnerability:</span> Large Language Models, when acting as ESG Analysts, are highly susceptible to contextual isolation and re-framing, prioritizing perceived completeness over hard, verifiable data.
+                    </p>
+                </div>
+                <div class="flex items-start">
+                    <span class="text-3xl font-extrabold text-blue-600 mr-4">3.</span>
+                    <p class="text-gray-700">
+                        <span class="font-bold">The Danger of Abstraction:</span> By removing units, fiscal years, and auditor names, the data becomes abstract, allowing the LLM to fill the void with positive assumptions, leading to a severely biased assessment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+
+        function updateSlideDisplay() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            // Update button states
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+
+            prevBtn.classList.toggle('opacity-50', prevBtn.disabled);
+            prevBtn.classList.toggle('cursor-not-allowed', prevBtn.disabled);
+            prevBtn.classList.toggle('bg-blue-600', !prevBtn.disabled);
+            prevBtn.classList.toggle('text-white', !prevBtn.disabled);
+            prevBtn.classList.toggle('bg-gray-300', prevBtn.disabled);
+            prevBtn.classList.toggle('text-gray-800', prevBtn.disabled);
+
+            nextBtn.classList.toggle('opacity-50', nextBtn.disabled);
+            nextBtn.classList.toggle('cursor-not-allowed', nextBtn.disabled);
+        }
+
+        function goToNextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideDisplay();
+            }
+        }
+
+        function goToPrevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideDisplay();
+            }
+        }
+
+        nextBtn.addEventListener('click', goToNextSlide);
+        prevBtn.addEventListener('click', goToPrevSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                goToNextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                goToPrevSlide();
+            }
+        });
+
+        // Initialize display
+        updateSlideDisplay();
+    </script>
+</body>
+</html>
